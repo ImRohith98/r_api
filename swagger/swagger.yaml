@@ -1,0 +1,88 @@
+openapi: 3.0.0
+info:
+  title: R APi
+  description: Api are related to R project which include all modules
+  version: 0.0.1
+servers:
+  - url: http://localhost:4444
+    description: This is localhost api
+tags:
+  - name: sample
+    description: Everything about your Sample for all Methods
+    externalDocs:
+      url: https://swagger.io/docs/specification/grouping-operations-with-tags/
+paths:
+  /:
+    get:
+      summary: This is to test APi.
+      description: Optional extended description in CommonMark or HTML.
+      responses:
+        "200":
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  /sample:
+    get:
+      summary: This is to test APi.
+      description: Optional extended description in CommonMark or HTML.
+      tags: ["sample"]
+      responses:
+        "200":
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: "testoing"
+                password:
+                  type: string
+                  example: "testoing"
+      summary: This is to test APi.
+      tags: ["sample"]
+      responses:
+        "200":
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  type: string
+                example: data
+  /sample/{id}:
+    get:
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      summary: This is to test APi.
+      description: Optional extended description in CommonMark or HTML.
+      tags: ["sample"]
+      responses:
+        "200":
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  type: string
+                example: data

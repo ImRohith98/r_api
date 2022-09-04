@@ -7,3 +7,12 @@ dont forget this steps
 5. remove unwanted code 
 
 
+to create project for api 
+"npm init"
+
+packages :-
+
+1. express - to create api 
+2. nodemon - to auto start the apis
+3. swagger-jsdoc
+4. swagger-ui-express
