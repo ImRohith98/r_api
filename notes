@@ -1,0 +1,28 @@
+Hey this is note pad kind of thing 
+dont forget this steps 
+1. daily work on this project
+2. need to add daily steps 
+3. write down all dependecy and use of it
+4. add comments for code 
+5. remove unwanted code 
+
+
+db details
+username : hithro.andalaifn@outlook.com
+password : 2202@tcejorPenO
+
+users : itsNewProject
+password: IwillWorkOnThisProject
+
+to create project for api 
+"npm init"
+
+packages :-
+
+1. express - to create api 
+2. nodemon - to auto start the apis
+3. swagger-jsdoc
+4. swagger-ui-express
+5. yamljs -- for doc of swagger
+6. cors -- for removeing cors issues
+7. mongoose -- help for connting db
