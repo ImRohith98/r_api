@@ -1,47 +1,35 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
+const bodypraser = require("body-parser");
+app.use(bodypraser.json());
 //this both are used for swagger
-const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 const YAML = require("yamljs");
 const swaggerDocument = YAML.load("./swagger/swagger.yaml");
 
+// this for cors
+var cors = require("cors");
+
+// db details
+const connectDB = require("./config/dbConnection");
+const mongoose = require("mongoose");
+connectDB();
+
 // routers import
 const sample = require("./routes/sample");
+const users = require("./routes/users");
 
-// Extended: https://swagger.io/specification/#infoObject
-const swaggerOptions = {
-  swaggerDefinition: {
-    info: {
-      version: "1.0.0",
-      title: "R API",
-      description: "APi are deveoping for R project",
-      contact: {
-        name: "Rohith Reddy Mandala",
-      },
-      servers: ["http://localhost:4444"],
-    },
-  },
-  // ['.routes/*.js']
-  apis: ["main.js", "./routes/*.js"],
-};
-
-const swaggerDocs = swaggerJsDoc(swaggerOptions);
+//cors part
+const corsOptions = require("./config/corsConfig");
+const port = process.env.NODE_PORT || 4444;
+// cors enable
+app.use(cors(corsOptions));
 
 // Routes
 app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
+app.use("/user", users);
 app.use("/sample", sample);
-
-/**
- * @swagger
- * /:
- *   get:
- *     summary: ado / tho rayali ani rasina antha
- *     responses:
- *       200:
- *         description: this is for testing
- */
 
 app.get("/", (req, res) => {
   res.status(200).send({
@@ -51,4 +39,15 @@ app.get("/", (req, res) => {
   });
 });
 
-app.listen(4444, (req) => console.log(" i am started"));
+mongoose.connection.once("open", () => {
+  console.log("Connected to MongoDB");
+  app.listen(port, (req) => console.log(" i am started"));
+});
+
+mongoose.connection.on("error", (err) => {
+  console.log(err);
+  logEvents(
+    `${err.no}: ${err.code}\t${err.syscall}\t${err.hostname}`,
+    "mongoErrLog.log"
+  );
+});
